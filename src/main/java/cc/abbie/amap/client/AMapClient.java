@@ -1,7 +1,15 @@
 package cc.abbie.amap.client;
 
+import net.minecraft.SharedConstants;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+
+import org.jetbrains.annotations.Nullable;
+
+import cc.abbie.aconfig.screen.ConfigScreen;
 import cc.abbie.amap.AMap;
 import cc.abbie.amap.client.minimap.MinimapHud;
+import cc.abbie.amap.client.minimap.config.MinimapConfig;
 import folk.sisby.surveyor.WorldSummary;
 import folk.sisby.surveyor.client.SurveyorClientEvents;
 import net.fabricmc.api.ClientModInitializer;
@@ -24,5 +32,13 @@ public class AMapClient implements ClientModInitializer {
         SurveyorClientEvents.Register.landmarksRemoved(AMap.id("landmarks_removed"), MapStorage.INSTANCE);
 
         AMapKeybinds.register();
+    }
+    
+    public static Screen createConfigScreen(@Nullable Screen parent) {
+        return new ConfigScreen(
+                Component.literal(String.format("%s v%s [%s]", AMap.MOD_NAME, AMap.MOD_VERSION, SharedConstants.getCurrentVersion().getName())),
+                parent, 
+                MinimapConfig.INSTANCE
+        );
     }
 }

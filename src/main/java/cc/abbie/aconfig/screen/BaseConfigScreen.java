@@ -1,4 +1,4 @@
-package cc.abbie.amap.client.minimap.config.screen;
+package cc.abbie.aconfig.screen;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.layouts.FrameLayout;
@@ -9,10 +9,10 @@ import net.minecraft.network.chat.Component;
 
 import org.jetbrains.annotations.Nullable;
 
-import cc.abbie.amap.client.minimap.config.widget.BooleanConfigButton;
-import cc.abbie.amap.client.minimap.config.widget.ConfigButton;
-import cc.abbie.amap.client.minimap.config.widget.EnumConfigButton;
-import cc.abbie.amap.client.minimap.config.widget.SimpleButton;
+import cc.abbie.aconfig.widget.BooleanConfigButton;
+import cc.abbie.aconfig.widget.ConfigButton;
+import cc.abbie.aconfig.widget.EnumConfigButton;
+import cc.abbie.aconfig.widget.SimpleButton;
 import folk.sisby.kaleido.lib.quiltconfig.api.values.TrackedValue;
 import folk.sisby.kaleido.lib.quiltconfig.api.values.ValueTreeNode;
 

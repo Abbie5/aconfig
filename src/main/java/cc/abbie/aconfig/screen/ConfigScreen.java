@@ -1,6 +1,5 @@
-package cc.abbie.amap.client.minimap.config.screen;
+package cc.abbie.aconfig.screen;
 
-import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.screens.Screen;
@@ -9,15 +8,17 @@ import net.minecraft.network.chat.Component;
 
 import org.jetbrains.annotations.Nullable;
 
-import cc.abbie.amap.AMap;
-import cc.abbie.amap.client.AMapKeybinds;
-import cc.abbie.amap.client.minimap.config.MinimapConfig;
-import cc.abbie.amap.client.minimap.config.widget.ConfigButton;
-import cc.abbie.amap.client.minimap.config.widget.SimpleButton;
+import cc.abbie.aconfig.widget.ConfigButton;
+import cc.abbie.aconfig.widget.SimpleButton;
+import folk.sisby.kaleido.lib.quiltconfig.api.Config;
 
 public class ConfigScreen extends BaseConfigScreen {
-    public ConfigScreen(@Nullable Screen parent) {
-        super(Component.translatable("screen.amap.minimap.config"), MinimapConfig.INSTANCE.nodes(), parent);
+    public ConfigScreen(Component title, @Nullable Screen parent, Config config) {
+        super(title, config.nodes(), parent);
+    }
+
+    public ConfigScreen(@Nullable Screen parent, Config config) {
+        this(Component.translatable("screen.aconfig.title", config.family(), config.id()), parent, config);
     }
 
     private static int boopCounter = 0;
@@ -28,9 +29,8 @@ public class ConfigScreen extends BaseConfigScreen {
         layout.defaultCellSetting().alignHorizontallyCenter();
         GridLayout.RowHelper rows = layout.createRowHelper(3);
 
-        String titleText = String.format("%s v%s [%s]", AMap.MOD_NAME, AMap.MOD_VERSION, SharedConstants.getCurrentVersion().getName());
-        int titleWidth = font.width(titleText);
-        rows.addChild(new SimpleButton(Component.literal(titleText), titleWidth + 4, b -> {
+        int titleWidth = font.width(title);
+        rows.addChild(new SimpleButton(title, titleWidth + 4, b -> {
             boopCounter++;
             if (boopCounter > 10) {
                 b.active = false;
@@ -68,14 +68,5 @@ public class ConfigScreen extends BaseConfigScreen {
             gui.fill(x, y, maxX, maxY, 0xa0000000);
         });
         layout.visitWidgets(this::addRenderableWidget);
-    }
-
-    @Override
-    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-        if (AMapKeybinds.OPEN_MINIMAP_CONFIG.matches(keyCode, scanCode)) {
-            this.onClose();
-            return true;
-        }
-        return super.keyPressed(keyCode, scanCode, modifiers);
     }
 }

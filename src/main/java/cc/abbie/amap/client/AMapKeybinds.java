@@ -1,6 +1,5 @@
 package cc.abbie.amap.client;
 
-import cc.abbie.amap.client.minimap.config.screen.ConfigScreen;
 import cc.abbie.amap.client.minimap.MinimapHud;
 import cc.abbie.amap.client.worldmap.WorldMapScreen;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -42,7 +41,7 @@ public class AMapKeybinds implements ClientTickEvents.EndTick {
         } else if (TOGGLE_ROTATION.consumeClick()) {
             MinimapHud.rotate = !MinimapHud.rotate;
         } else if (OPEN_MINIMAP_CONFIG.consumeClick()) {
-            client.setScreen(new ConfigScreen(null));
+            client.setScreen(AMapClient.createConfigScreen(null));
         }
     }
 }

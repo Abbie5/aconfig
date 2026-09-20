@@ -1,4 +1,4 @@
-package cc.abbie.amap.client.minimap.config.widget;
+package cc.abbie.aconfig.widget;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
