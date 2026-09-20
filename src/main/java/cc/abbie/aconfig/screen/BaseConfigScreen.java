@@ -3,7 +3,7 @@ package cc.abbie.aconfig.screen;
 import net.minecraft.client.Minecraft;
 //? if >=26.1 {
 import net.minecraft.client.gui.GuiGraphicsExtractor;
-//?} else
+//?} else if >=1.20.1
 //import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.layouts.FrameLayout;
@@ -70,7 +70,10 @@ public class BaseConfigScreen extends Screen {
             int y = innerContainer.getY();
             int maxX = x + innerContainer.getWidth();
             int maxY = y + innerContainer.getHeight();
+            //? if >=1.20.1 {
             gui.fill(x, y, maxX, maxY, 0xa0000000);
+            //?} else
+            //fill(gui, x, y, maxX, maxY, 0xa0000000);
         });
         layout.visitWidgets(this::addRenderableWidget);
 

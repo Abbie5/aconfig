@@ -57,7 +57,10 @@ public class ConfigScreen extends BaseConfigScreen {
             int y = innerContainer.getY();
             int maxX = x + innerContainer.getWidth();
             int maxY = y + innerContainer.getHeight();
+            //? if >=1.20.1 {
             gui.fill(x, y, maxX, maxY, 0xa0000000);
+            //?} else
+            //fill(gui, x, y, maxX, maxY, 0xa0000000);
         });
         layout.visitWidgets(this::addRenderableWidget);
     }
