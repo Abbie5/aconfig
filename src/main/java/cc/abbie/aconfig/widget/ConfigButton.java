@@ -8,12 +8,12 @@ import net.minecraft.network.chat.Component;
 
 public class ConfigButton extends Button {
 
-    public ConfigButton(Component message, OnPress onPress) {
-        super(0, 0, 174, 10, message, onPress, DEFAULT_NARRATION);
+    public ConfigButton(OnPress onPress) {
+        super(0, 0, 54, 10, Component.empty(), onPress, DEFAULT_NARRATION);
     }
 
-    public ConfigButton(Component message) {
-        this(message, b -> {});
+    public ConfigButton() {
+        this(b -> {});
     }
     
     protected Component getText() {

@@ -4,13 +4,9 @@ import net.minecraft.network.chat.Component;
 
 import folk.sisby.kaleido.lib.quiltconfig.api.values.TrackedValue;
 
-public class BooleanConfigButton extends ConfigButton {
-    private final TrackedValue<Boolean> trackedValue;
-    
-    public BooleanConfigButton(Component message, TrackedValue<Boolean> trackedValue) {
-        super(message);
-        
-        this.trackedValue = trackedValue;
+public class BooleanConfigButton extends AbstractTrackedValueConfigButton<Boolean> {
+    public BooleanConfigButton(TrackedValue<Boolean> trackedValue) {
+        super(trackedValue);
     }
 
     @Override

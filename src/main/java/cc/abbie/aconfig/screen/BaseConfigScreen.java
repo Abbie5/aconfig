@@ -1,6 +1,9 @@
 package cc.abbie.aconfig.screen;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.layouts.LayoutElement;
@@ -12,8 +15,14 @@ import org.jetbrains.annotations.Nullable;
 import cc.abbie.aconfig.widget.BooleanConfigButton;
 import cc.abbie.aconfig.widget.ConfigButton;
 import cc.abbie.aconfig.widget.EnumConfigButton;
+import cc.abbie.aconfig.widget.IntegerConfigButton;
+import cc.abbie.aconfig.widget.ListConfigButton;
+import cc.abbie.aconfig.widget.MapConfigButton;
 import cc.abbie.aconfig.widget.SimpleButton;
+import cc.abbie.aconfig.widget.StringConfigButton;
 import folk.sisby.kaleido.lib.quiltconfig.api.values.TrackedValue;
+import folk.sisby.kaleido.lib.quiltconfig.api.values.ValueList;
+import folk.sisby.kaleido.lib.quiltconfig.api.values.ValueMap;
 import folk.sisby.kaleido.lib.quiltconfig.api.values.ValueTreeNode;
 
 import java.util.function.Consumer;
@@ -42,7 +51,7 @@ public class BaseConfigScreen extends Screen {
         innerContainer.defaultCellSetting().paddingHorizontal(2).paddingTop(2).paddingBottom(1);
 
         GridLayout inner = new GridLayout();
-        GridLayout.RowHelper innerRows = inner.createRowHelper(1);
+        GridLayout.RowHelper innerRows = inner.createRowHelper(2);
 
         addConfigButtons(innerRows::addChild);
         
@@ -67,34 +76,39 @@ public class BaseConfigScreen extends Screen {
     
     protected void addConfigButtons(Consumer<LayoutElement> consumer) {
         for (ValueTreeNode node : nodes) {
-            ConfigButton button = getButton(node);
+            LayoutElement button = getButton(node);
             if (button == null) continue;
+            consumer.accept(new StringWidget(createComponent(node), Minecraft.getInstance().font));
             consumer.accept(button);
         }
     }
     
     @Nullable
-    private ConfigButton getButton(ValueTreeNode node) {
+    private LayoutElement getButton(ValueTreeNode node) {
         Component name = createComponent(node);
         if (node instanceof ValueTreeNode.Section section) {
-            return new ConfigButton(name, b -> minecraft.setScreen(new BaseConfigScreen(name, section, this)));
+            return new ConfigButton(b -> minecraft.setScreen(new BaseConfigScreen(name, section, this)));
         } else if (node instanceof TrackedValue<?> trackedValue) {
             Object defaultValue = trackedValue.getDefaultValue();
             if (defaultValue instanceof Boolean) {
-                return new BooleanConfigButton(name, (TrackedValue<Boolean>) trackedValue);
+                return new BooleanConfigButton((TrackedValue<Boolean>) trackedValue);
             } else if (defaultValue instanceof Enum<?>) {
-                return new EnumConfigButton<>(name, (TrackedValue<Enum>) trackedValue);
+                return new EnumConfigButton<>((TrackedValue<Enum>) trackedValue);
+            } else if (defaultValue instanceof Integer) {
+                return new IntegerConfigButton((TrackedValue<Integer>) trackedValue);
+            } else if (defaultValue instanceof String) {
+                return new StringConfigButton((TrackedValue<String>) trackedValue);
+            } else if (defaultValue instanceof ValueList<?>) {
+                return new ListConfigButton((TrackedValue<ValueList<?>>) trackedValue);
+            } else if (defaultValue instanceof ValueMap<?>) {
+                return new MapConfigButton((TrackedValue<ValueMap<?>>) trackedValue);
             }
         }
         return null;
     }
     
     public static Component createComponent(ValueTreeNode node) {
-        return Component.translatable(
-                "config.aconfig."
-                        + (node instanceof ValueTreeNode.Section ? "category" : "option")
-                        + "." + String.join(".", node.key())
-        );
+        return Component.literal(node.key().getLastComponent());
     }
     
     @Override

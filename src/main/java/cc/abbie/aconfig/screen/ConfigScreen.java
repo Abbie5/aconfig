@@ -40,7 +40,7 @@ public class ConfigScreen extends BaseConfigScreen {
         innerContainer.defaultCellSetting().paddingHorizontal(2).paddingTop(2).paddingBottom(1);
 
         GridLayout inner = new GridLayout();
-        GridLayout.RowHelper innerRows = inner.createRowHelper(1);
+        GridLayout.RowHelper innerRows = inner.createRowHelper(2);
 
         addConfigButtons(innerRows::addChild);
 
