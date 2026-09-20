@@ -1,37 +1,27 @@
 {
   "schemaVersion": 1,
-  "id": "amap",
+  "id": "aconfig",
   "version": "${version}",
-  "name": "AMap",
-  "description": "It's A Map!",
+  "name": "AConfig",
+  "description": "A config screen generator for Kaleido Config",
   "authors": [
     "Abbie"
   ],
   "contact": {
-    "homepage": "https://github.com/Abbie5/amap",
-    "sources": "https://github.com/Abbie5/amap",
-    "issues": "https://github.com/Abbie5/amap/issues"
+    "homepage": "https://github.com/Abbie5/aconfig",
+    "sources": "https://github.com/Abbie5/aconfig",
+    "issues": "https://github.com/Abbie5/aconfig/issues"
   },
   "license": "LGPL-3.0-only",
   "environment": "client",
   "entrypoints": {
-    "main": [
-      "cc.abbie.amap.AMap"
-    ],
-    "client": [
-      "cc.abbie.amap.client.AMapClient"
-    ],
     "modmenu": [
-      "cc.abbie.amap.compat.modmenu.AMapModMenu"
+      "cc.abbie.aconfig.compat.AConfigModMenu"
     ]
   },
-  "mixins": [
-    "amap.mixins.json"
-  ],
   "depends": {
     "fabricloader": ">=0.16",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}",
-    "surveyor": ">=0.6"
+    "minecraft": "${minecraft_version}"
   }
 }

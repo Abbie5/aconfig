@@ -35,7 +35,6 @@ dependencies {
 
     modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
-    modImplementation "folk.sisby:surveyor:${project.surveyor_version}"
     implementation "folk.sisby:kaleido-config:${project.kaleido_version}"
 }
 

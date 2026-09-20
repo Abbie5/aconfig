@@ -3,12 +3,10 @@ package cc.abbie.aconfig.screen;
 import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.client.gui.screens.options.controls.KeyBindsScreen;
 import net.minecraft.network.chat.Component;
 
 import org.jetbrains.annotations.Nullable;
 
-import cc.abbie.aconfig.widget.ConfigButton;
 import cc.abbie.aconfig.widget.SimpleButton;
 import folk.sisby.kaleido.lib.quiltconfig.api.Config;
 
@@ -45,18 +43,12 @@ public class ConfigScreen extends BaseConfigScreen {
         GridLayout.RowHelper innerRows = inner.createRowHelper(1);
 
         addConfigButtons(innerRows::addChild);
-        innerRows.addChild(new ConfigButton(Component.translatable("config.amap.category.about")));
-        innerRows.addChild(new ConfigButton(Component.translatable("config.amap.option.updateCheck")));
 
         innerContainer.addChild(inner, 0, 0);
 
         rows.addChild(innerContainer, 3);
 
-        rows.addChild(new SimpleButton(Component.translatable("config.amap.option.exit"), b -> onClose()));
-        rows.addChild(new SimpleButton(Component.translatable("config.amap.category.waypoints")));
-        rows.addChild(new SimpleButton(Component.translatable("config.amap.category.keyconfig"), b -> {
-            this.minecraft.setScreen(new KeyBindsScreen(this, this.minecraft.options));
-        }));
+        rows.addChild(new SimpleButton(Component.translatable("config.aconfig.option.exit"), b -> onClose()));
 
         layout.arrangeElements();
         FrameLayout.alignInRectangle(layout, 0, 0, this.width, this.height, 0.5f, 0.5f);

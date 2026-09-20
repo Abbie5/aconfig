@@ -15,7 +15,7 @@ public class BooleanConfigButton extends ConfigButton {
 
     @Override
     protected Component getText() {
-        return trackedValue.value() ? Component.translatable("button.amap.toggle.enabled") : Component.translatable("button.amap.toggle.disabled");
+        return trackedValue.value() ? Component.translatable("button.aconfig.toggle.enabled") : Component.translatable("button.aconfig.toggle.disabled");
     }
 
     @Override

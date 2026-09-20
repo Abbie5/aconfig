@@ -1,3 +1,7 @@
 {
-  "screen.aconfig.title": "%s %s config"
+  "screen.aconfig.title": "%s %s config",
+  "button.aconfig.toggle.enabled": "Enabled",
+  "button.aconfig.toggle.disabled": "Disabled",
+  "config.aconfig.option.exit": "Exit",
+  "config.aconfig.category.back": "Back"
 }

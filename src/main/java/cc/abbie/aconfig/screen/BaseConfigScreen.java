@@ -50,7 +50,7 @@ public class BaseConfigScreen extends Screen {
 
         rows.addChild(innerContainer);
 
-        rows.addChild(new SimpleButton(Component.translatable("config.amap.category.back"), b -> onClose()));
+        rows.addChild(new SimpleButton(Component.translatable("config.aconfig.category.back"), b -> onClose()));
 
         layout.arrangeElements();
         FrameLayout.alignInRectangle(layout, 0, 0, this.width, this.height, 0.5f, 0.5f);
@@ -91,7 +91,7 @@ public class BaseConfigScreen extends Screen {
     
     public static Component createComponent(ValueTreeNode node) {
         return Component.translatable(
-                "config.amap."
+                "config.aconfig."
                         + (node instanceof ValueTreeNode.Section ? "category" : "option")
                         + "." + String.join(".", node.key())
         );
