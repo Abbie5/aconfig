@@ -10,8 +10,4 @@ public class ListConfigButton extends AbstractTrackedValueConfigButton<ValueList
 		super(trackedValue);
 	}
 
-	@Override
-	public void onPress() {
-		
-	}
 }

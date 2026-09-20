@@ -10,8 +10,4 @@ public class MapConfigButton extends AbstractTrackedValueConfigButton<ValueMap<?
 		super(trackedValue);
 	}
 
-	@Override
-	public void onPress() {
-		
-	}
 }

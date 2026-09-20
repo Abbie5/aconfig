@@ -1,8 +1,10 @@
 package cc.abbie.aconfig.screen;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.EditBox;
+//? if >=26.1 {
+import net.minecraft.client.gui.GuiGraphicsExtractor;
+//?} else
+//import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.layouts.FrameLayout;
 import net.minecraft.client.gui.layouts.GridLayout;
@@ -50,7 +52,7 @@ public class BaseConfigScreen extends Screen {
         GridLayout innerContainer = new GridLayout();
         innerContainer.defaultCellSetting().paddingHorizontal(2).paddingTop(2).paddingBottom(1);
 
-        GridLayout inner = new GridLayout();
+        GridLayout inner = new GridLayout().columnSpacing(2);
         GridLayout.RowHelper innerRows = inner.createRowHelper(2);
 
         addConfigButtons(innerRows::addChild);
@@ -87,7 +89,12 @@ public class BaseConfigScreen extends Screen {
     private LayoutElement getButton(ValueTreeNode node) {
         Component name = createComponent(node);
         if (node instanceof ValueTreeNode.Section section) {
-            return new ConfigButton(b -> minecraft.setScreen(new BaseConfigScreen(name, section, this)));
+            return new ConfigButton(b -> {
+                //? if >=26.2 {
+                minecraft.setScreenAndShow(new BaseConfigScreen(name, section, this));
+                //?} else
+                //minecraft.setScreen(new BaseConfigScreen(name, section, this));
+            });
         } else if (node instanceof TrackedValue<?> trackedValue) {
             Object defaultValue = trackedValue.getDefaultValue();
             if (defaultValue instanceof Boolean) {
@@ -111,17 +118,35 @@ public class BaseConfigScreen extends Screen {
         return Component.literal(node.key().getLastComponent());
     }
     
-    @Override
-    public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        if (minecraft.level == null) {
-            renderPanorama(guiGraphics, partialTick);
-            renderBlurredBackground(partialTick);
-            renderMenuBackground(guiGraphics);
-        }
-    }
+//    @Override
+//    //? if >=26.1 {
+//    public void extractBackground(GuiGraphicsExtractor guiGraphics, int mouseX, int mouseY, float partialTick)
+//    //? } else
+//    //public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick)
+//    {
+//        if (minecraft.level == null) {
+//            //? if >=26.1 {
+//            extractPanorama(guiGraphics, partialTick);
+//            extractBlurredBackground(guiGraphics);
+//            extractMenuBackground(guiGraphics);
+//            //? } else {
+//            /*renderPanorama(guiGraphics, partialTick);
+//            //? if >=1.21.8 {
+//            renderBlurredBackground(guiGraphics);
+//            //?} else if >=1.21.3 {
+//            /^renderBlurredBackground();
+//            ^///?} else
+//            //renderBlurredBackground(partialTick);
+//            renderMenuBackground(guiGraphics);
+//            *///?}
+//        }
+//    }
     
     @Override
     public void onClose() {
-        minecraft.setScreen(parent);
+        //? if >=26.2 {
+        minecraft.setScreenAndShow(parent);
+        //?} else
+        //minecraft.setScreen(parent);
     }
 }

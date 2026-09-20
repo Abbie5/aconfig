@@ -2,12 +2,15 @@ package cc.abbie.aconfig.widget;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.EditBox;
+//? if >=1.21.10
+import net.minecraft.client.input.KeyEvent;
 import net.minecraft.network.chat.Component;
 
-import folk.sisby.kaleido.lib.quiltconfig.api.Constraint;
 import folk.sisby.kaleido.lib.quiltconfig.api.values.TrackedValue;
-import org.lwjgl.glfw.GLFW;
-import org.lwjgl.opengl.GL11;
+//? if >=26.3 {
+import org.lwjgl.sdl.SDLKeycode;
+//?} else
+//import org.lwjgl.glfw.GLFW;
 
 import java.util.Optional;
 
@@ -16,7 +19,10 @@ public class IntegerConfigButton extends EditBox {
 	private boolean error = false;
 	
 	public IntegerConfigButton(TrackedValue<Integer> trackedValue) {
+		//? if >=1.20.2 {
 		super(Minecraft.getInstance().font, 54, 10, Component.empty());
+		//?} else
+		//super(Minecraft.getInstance().font, 0, 0, 54, 10, Component.empty());
 		
 		this.trackedValue = trackedValue;
 		
@@ -36,8 +42,17 @@ public class IntegerConfigButton extends EditBox {
 	}
 
 	@Override
-	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		if (this.isActive() && this.isFocused() && (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER)) {
+	//? if >=1.21.10 {
+	public boolean keyPressed(KeyEvent keyEvent) {
+		int keyCode = keyEvent.key();
+	//?} else {
+	/*public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+		*///?}
+		//? if >=26.3 {
+		if (this.isActive() && this.isFocused() && (keyCode == SDLKeycode.SDLK_RETURN || keyCode == SDLKeycode.SDLK_KP_ENTER))
+		//?} else
+		//if (this.isActive() && this.isFocused() && (keyCode == GLFW.GLFW_KEY_ENTER || keyCode == GLFW.GLFW_KEY_KP_ENTER))
+		{
 			// validate & submit value
 			String s = this.getValue();
 			Optional<Integer> o = this.validate(s);
@@ -49,6 +64,9 @@ public class IntegerConfigButton extends EditBox {
 			}
 			return true;
 		}
-		return super.keyPressed(keyCode, scanCode, modifiers);
+		//? if >=1.21.10 {
+		return super.keyPressed(keyEvent);
+		//?} else
+		//return super.keyPressed(keyCode, scanCode, modifiers);
 	}
 }

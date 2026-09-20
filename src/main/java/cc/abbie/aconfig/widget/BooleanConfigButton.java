@@ -1,5 +1,7 @@
 package cc.abbie.aconfig.widget;
 
+//? if >=1.21.10
+import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.network.chat.Component;
 
 import folk.sisby.kaleido.lib.quiltconfig.api.values.TrackedValue;
@@ -20,7 +22,11 @@ public class BooleanConfigButton extends AbstractTrackedValueConfigButton<Boolea
     }
 
     @Override
-    public void onPress() {
+    //? if >=1.21.10 {
+    public void onPress(InputWithModifiers inputWithModifiers)
+    //?} else
+    //public void onPress()
+    {
         trackedValue.setValue(!trackedValue.value());
     }
 }

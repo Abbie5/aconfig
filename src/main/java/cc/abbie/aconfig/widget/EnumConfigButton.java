@@ -1,5 +1,7 @@
 package cc.abbie.aconfig.widget;
 
+//? if >=1.21.10
+import net.minecraft.client.input.InputWithModifiers;
 import net.minecraft.network.chat.Component;
 
 import folk.sisby.kaleido.lib.quiltconfig.api.values.TrackedValue;
@@ -19,7 +21,11 @@ public class EnumConfigButton<E extends Enum<E>> extends AbstractTrackedValueCon
     }
 
     @Override
-    public void onPress() {
+    //? if >=1.21.10 {
+    public void onPress(InputWithModifiers inputWithModifiers)
+    //?} else
+    //public void onPress()
+    {
         E oldValue = trackedValue.value();
         int ord = oldValue.ordinal();
         E newValue = values[(ord + 1) % values.length];

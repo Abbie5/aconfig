@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "aconfig",
+  "id": "${id}",
   "version": "${version}",
-  "name": "AConfig",
+  "name": "${name}",
   "description": "A config screen generator for Kaleido Config",
   "authors": [
     "Abbie"
@@ -22,6 +22,6 @@
   "depends": {
     "fabricloader": ">=0.16",
     "fabric-api": "*",
-    "minecraft": "${minecraft_version}"
+    "minecraft": "${minecraft}"
   }
 }
