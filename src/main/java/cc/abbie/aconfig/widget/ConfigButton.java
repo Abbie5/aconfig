@@ -5,8 +5,8 @@ import net.minecraft.client.gui.Font;
 //? if >=26.1 {
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 //?} else if >=1.20.1 {
-//import net.minecraft.client.gui.GuiGraphics;
-//?} else
+/*import net.minecraft.client.gui.GuiGraphics;
+*///?} else
 //import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;

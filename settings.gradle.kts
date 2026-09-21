@@ -2,7 +2,8 @@ pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
-        maven("https://maven.fabricmc.net/")
+        maven("https://maven.fabricmc.net/") { name = "FabricMC" }
+        maven("https://maven.neoforged.net/releases/") { name = "NeoForged" }
         maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
     }
 }
@@ -21,29 +22,36 @@ plugins {
 
 stonecutter {
     create(rootProject) {
+        /**
+         * Creates version nodes for multiple loaders.
+         *
+         * This function will create subprojects named `versions/{project}-{loader}`.
+         * Each project has a logical [version], which should match the Minecraft version,
+         * whereas [project] is the arbitrary name part of the folder.
+         *
+         * Each project will also have a separate build script assigned depending on the loader,
+         * named `build.{loader}.gradle.kts`.
+         */
+        fun match(project: String, vararg loaders: String, version: String = project) {
+            for (loader in loaders) version("$project-$loader", version).buildscript("build.$loader.gradle.kts")
+        }
         // See https://stonecutter.kikugie.dev/wiki/start/#choosing-minecraft-versions
-        versions(
-//            "1.16.5",
-//            "1.17.1",
-//            "1.18.2",
-//            "1.19.2",
-            "1.19.4",
-            "1.20.1",
-            "1.20.2",
-            "1.20.4",
-            "1.20.6",
-            "1.21.1",
-            "1.21.3",
-            "1.21.4",
-            "1.21.5",
-            "1.21.8",
-            "1.21.10",
-            "1.21.11",
-            "26.1.2",
-            "26.2",
-            "26.3"
-        )
-        vcsVersion = "26.3"
+        match("1.19.4", "fabric", "forge")
+        match("1.20.1", "fabric", "forge")
+//        match("1.20.2", "fabric", "neoforge")
+//        match("1.20.4", "fabric", "neoforge")
+//        match("1.20.6", "fabric", "neoforge")
+        match("1.21.1", "fabric", "neoforge")
+//        match("1.21.3", "fabric", "neoforge")
+//        match("1.21.4", "fabric", "neoforge")
+//        match("1.21.5", "fabric", "neoforge")
+//        match("1.21.8", "fabric", "neoforge")
+//        match("1.21.10", "fabric", "neoforge")
+//        match("1.21.11", "fabric", "neoforge")
+//        match("26.1.2", "fabric", "neoforge")
+//        match("26.2", "fabric", "neoforge")
+        match("26.3", "fabric", "neoforge")
+        vcsVersion = "26.3-fabric"
     }
 }
 
